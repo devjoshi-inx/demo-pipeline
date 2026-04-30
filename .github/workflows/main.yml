@@ -1,0 +1,25 @@
+name: PipelineIQ-Log-Tester
+on: [workflow_dispatch, push]
+
+jobs:
+  multi-env-build:
+    name: Build on ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Generate Standard Logs
+        run: |
+          echo "INFO: Starting build process..."
+          echo "DEBUG: Configuration loaded successfully."
+      
+      - name: Simulate Error Logs
+        run: |
+          echo "WARNING: Deprecated API detected!" >&2
+          echo "ERROR: Could not find manifest file." >&2
+          # We don't exit 1 here so the job continues, 
+          # allowing you to see if your MCP fetches 'Warning' logs.
+          
+      - name: Final Status Check
+        run: echo "Job completed on ${{ matrix.os }}"
