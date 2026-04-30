@@ -15,6 +15,7 @@ jobs:
           echo "DEBUG: Configuration loaded successfully."
       
       - name: Simulate Error Logs
+        shell: bash
         run: |
           echo "WARNING: Deprecated API detected!" >&2
           echo "ERROR: Could not find manifest file." >&2
